@@ -56,7 +56,15 @@ e=>end
 st->op->cond
 cond(yes)->e
 cond(no)->op
- ```
+ ```  
+ ```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+  
+  
 # 缩进符号
 &nbsp;  缩进1/4中文  
 &ensp;  缩进半个中文，一个字符  
