@@ -64,7 +64,7 @@ cond(no)->op
 
 # 图片
 1. 插入互联网图片
-![累](https://www.bing.com/images/search?view=detailV2&ccid=%2bDKtLsJD&id=E7359DB89B7EC6E109E5BA2989312E0D66184364&thid=OIP.-DKtLsJDzTHtd_wT909cWwHaHV&mediaurl=https%3a%2f%2fimg.aidotu.com%2fdown%2fjpg%2f20200828%2ff832ad2ec243cd31ed77fc13f74f5c5b_63783_700_693.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.f832ad2ec243cd31ed77fc13f74f5c5b%3frik%3dZEMYZg0uMYkpug%26pid%3dImgRaw%26r%3d0&exph=693&expw=700&q=%e7%b4%af%e8%b6%b4%e4%ba%86&simid=607988677601863977&FORM=IRPRST&ck=BD2768CFB7E1997CBFE87640B0674D76&selectedIndex=4&itb=0&ajaxhist=0&ajaxserp=0)  
+![累](https://img.aidotu.com/down/jpg/20200828/f832ad2ec243cd31ed77fc13f74f5c5b_63783_700_693.jpg "累了 毁灭吧")  
 
 2. 插入本地图片
 <!-- ![本地图片](  ”hhhh“) -->
