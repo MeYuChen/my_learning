@@ -1,6 +1,7 @@
 # 看书的视频
-## 逼站博住
-### 计算机系统和计算机网络都是同一个博主讲解
+## B站博住
+[计算机科学导论](https://www.bilibili.com/video/BV13V41117xc?p=5&vd_source=99484403f32010c33b9b4d23c080916b) \
+[计算机网络:自顶向下方法](https://www.bilibili.com/video/BV1534y1o7eD/?spm_id_from=333.999.0.0&vd_source=99484403f32010c33b9b4d23c080916b) \
 
 # c++后台开发计划
 ## cpp相关
