@@ -63,7 +63,7 @@ graph TD;
     A-->C;
     C{yes or no}
     C-->|yes|B;
-    C-->|No|A;
+    C-->|no|A;
     B-->D;
     C-->D;
     D-->end;
