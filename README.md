@@ -1,4 +1,21 @@
-# my_study
-Token :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cy
-这个库是我用来学习c++ primer的
-打算一天学一点，加油！
+# 看书的视频
+## 逼站博住
+### 计算机系统和计算机网络都是同一个博主讲解
+
+# c++后台开发计划
+## cpp相关
+1 c++11
+2 Effective C++
+3 more Effective C++
+4 STL
+5 内存管理
+6 右值
+7 异常
+8 指针和引用
+9 类与对象
+10 编译期
+11 语言对比
+12 语言特性
+13 错误原因
+## C++并发
+1 
