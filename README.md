@@ -61,6 +61,8 @@ cond(no)->op
 graph TD;
     A-->B;
     A-->C;
+    C{yes or no}
+    C--|yes|B;
     B-->D;
     C-->D;
  ```
