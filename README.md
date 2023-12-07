@@ -48,3 +48,13 @@
 
 ```
 # 流程图
+ ```flow
+ st=>start:开始
+ op=>operation:my operation
+ cond=>condition: yes or No
+ e=>end:
+ cond(yes)->operation:wait
+ cond(No)->op
+ op->e
+ 
+ ```
