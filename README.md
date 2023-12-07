@@ -63,8 +63,10 @@ graph TD;
     A-->C;
     C{yes or no}
     C-->|yes|B;
+    C-->|No|A;
     B-->D;
     C-->D;
+    D-->end;
  ```
 # 缩进符号
 &nbsp;  缩进1/4中文  
