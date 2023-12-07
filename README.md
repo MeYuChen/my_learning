@@ -67,4 +67,4 @@ cond(no)->op
 ![累](https://img.aidotu.com/down/jpg/20200828/f832ad2ec243cd31ed77fc13f74f5c5b_63783_700_693.jpg "累了 毁灭吧")  
 
 2. 插入本地图片 vscode直接复制粘贴  
-![Alt text](SERVER_STUDY.png)"server"
+![Alt text](SERVER_STUDY.png "server")
