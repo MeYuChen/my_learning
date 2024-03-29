@@ -1,57 +1,51 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon
 
-def transform_obstacle_to_car_frame(car_x, car_y, car_yaw, obstacle_x, obstacle_y):
-    # 计算障碍物相对于车体坐标系的位置
-    obstacle_x_car = (obstacle_x - car_x) * np.cos(car_yaw) - (obstacle_y - car_y) * np.sin(car_yaw)
-    obstacle_y_car = (obstacle_x - car_x) * np.sin(car_yaw) + (obstacle_y - car_y) * np.cos(car_yaw)
+# Define the rotation matrix for rotating the coordinate system around the z-axis
+def rotation_matrix_z(theta):
+    return np.array([
+        [np.cos(theta), np.sin(theta), 0],
+        [-np.sin(theta), np.cos(theta), 0],
+        [0, 0, 1]
+    ])
 
-    return obstacle_x_car, obstacle_y_car
+# Define the obstacle point and the rotation angle (90 degrees or pi/2 radians)
+obstacle_point = np.array([1, 0, 0])
+vehicle_point = np.array([2, 2, 0])  # Adding vehicle position
+rotation_angle = np.pi / 2
 
-class PolygonVisualizer:
-    def __init__(self):
-        self.fig, self.ax = plt.subplots()
-        self.ax.set_xlim(-10, 10)
-        self.ax.set_ylim(-10, 10)
-        self.ax.set_aspect('equal', 'box')
-        self.ax.set_xlabel('X (m)')
-        self.ax.set_ylabel('Y (m)')
-        self.ax.set_title('Coordinate Transformation Visualization')
-        self.ax.grid(True)
+# Calculate the transpose of the rotation matrix (since the coordinate system is rotating)
+rot_matrix_transpose = rotation_matrix_z(rotation_angle).T
 
-    def visualize_polygon(self, vertices, label=None, color='blue'):
-        polygon = Polygon(vertices, closed=True, edgecolor='black', facecolor=color, label=label)
-        self.ax.add_patch(polygon)
+# Apply the rotation to the obstacle point (which effectively rotates the coordinate system)
+rotated_obstacle_point = rot_matrix_transpose.dot(obstacle_point)
 
-    def visualize(self):
-        self.ax.legend()
-        plt.show()
+# Plot the original and rotated coordinate systems with the obstacle and vehicle points
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
 
-# 测试
-if __name__ == "__main__":
-    # 创建可视化器对象
-    visualizer = PolygonVisualizer()
+# Original coordinate system, vehicle, and obstacle points
+ax1.quiver(0, 0, 1, 0, angles='xy', scale_units='xy', scale=1, color='r', label='X-axis')
+ax1.quiver(0, 0, 0, 1, angles='xy', scale_units='xy', scale=1, color='g', label='Y-axis')
+ax1.scatter(obstacle_point[0], obstacle_point[1], color='b', label='Obstacle (Original)')
+ax1.scatter(vehicle_point[0], vehicle_point[1], color='orange', label='Vehicle (Original)')
+ax1.set_xlim(-2, 4)
+ax1.set_ylim(-2, 4)
+ax1.set_aspect('equal')
+ax1.set_title('Original Coordinate System')
+ax1.legend()
+ax1.grid(True)
 
-    # 定义车辆的世界坐标和航向角
-    car_x, car_y = 2, 2
-    car_yaw = np.deg2rad(90)
+# Rotated coordinate system and obstacle point relative to vehicle
+ax2.quiver(vehicle_point[0], vehicle_point[1], rot_matrix_transpose[0, 0], rot_matrix_transpose[1, 0], angles='xy', scale_units='xy', scale=1, color='r')
+ax2.quiver(vehicle_point[0], vehicle_point[1], rot_matrix_transpose[0, 1], rot_matrix_transpose[1, 1], angles='xy', scale_units='xy', scale=1, color='g')
+ax2.scatter(vehicle_point[0] + rotated_obstacle_point[0], vehicle_point[1] + rotated_obstacle_point[1], color='b', label='Obstacle (Rotated)')
+ax2.scatter(vehicle_point[0], vehicle_point[1], color='orange', label='Vehicle (Origin)')
+ax2.set_xlim(-2, 4)
+ax2.set_ylim(-2, 4)
+ax2.set_aspect('equal')
+ax2.set_title('Rotated Coordinate System')
+ax2.legend()
+ax2.grid(True)
 
-    # 定义障碍物的世界坐标
-    obstacle_x, obstacle_y = 5, 5
-
-    # 将障碍物坐标转换为车体坐标系下的坐标
-    obstacle_x_car, obstacle_y_car = transform_obstacle_to_car_frame(car_x, car_y, car_yaw, obstacle_x, obstacle_y)
-    print("障碍物在车体坐标系下的坐标：", obstacle_x_car, obstacle_y_car)
-
-    # 可视化车辆和障碍物
-    car_vertices = np.array([[car_x + 2, car_y + 1], [car_x + 2, car_y - 1], [car_x - 2, car_y - 1], [car_x - 2, car_y + 1]])
-    obstacle_vertices_world = np.array([[obstacle_x + 1.5, obstacle_y + 0.5], [obstacle_x + 1.5, obstacle_y - 0.5], [obstacle_x - 1.5, obstacle_y - 0.5], [obstacle_x - 1.5, obstacle_y + 0.5]])
-    obstacle_vertices_car = np.array([[obstacle_x_car + 1.5, obstacle_y_car + 0.5], [obstacle_x_car + 1.5, obstacle_y_car - 0.5], [obstacle_x_car - 1.5, obstacle_y_car - 0.5], [obstacle_x_car - 1.5, obstacle_y_car + 0.5]])
-
-    visualizer.visualize_polygon(car_vertices, label='Car (World Frame)', color='blue')
-    visualizer.visualize_polygon(obstacle_vertices_world, label='Obstacle (World Frame)', color='red')
-    visualizer.visualize_polygon(obstacle_vertices_car, label='Obstacle (Car Frame)', color='green')
-
-    # 显示图像
-    visualizer.visualize()
+# Show the plots
+plt.show()
