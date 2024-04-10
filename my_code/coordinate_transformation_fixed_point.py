@@ -40,8 +40,6 @@ def z_roatiton_martix(z_radius):
     #     -sin(yaw) cos(yaw) 0
     #         0        0     1
     # ]
-    
-    
    return numpy.array(
             [
                 [numpy.cos(z_radius), numpy.sin(z_radius), 0],
