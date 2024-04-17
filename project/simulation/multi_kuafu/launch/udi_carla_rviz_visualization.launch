@@ -1,0 +1,50 @@
+<!-- -->
+<launch>
+  <arg name="multiple_kuafu" default="false" />
+  <arg name="ego_vehicle" default="kuafu_0"/>
+  <arg name="kuafu_1" default="kuafu_1" />
+  <arg name="kuafu_2" default="kuafu_2" />
+
+
+  <!-- User-Own Client -->
+  <!-- <node pkg="udi_carla" type="client_configure_spectator.py" name="client_configure_spectator" args="false" required="false" output="screen"/> -->
+
+  <group if="$(arg multiple_kuafu)">
+    <node pkg="rviz" type="rviz" name="rviz_global_$(arg kuafu_1)" args="-d $(find udi_carla)/rviz/global_planning_$(arg kuafu_1).rviz" required="false" output="screen">
+      <remap from="/initialpose" to="/$(arg kuafu_1)/initialpose"/>
+      <remap if="$(arg multiple_kuafu)" from="/move_base_simple/goal" to="/$(arg kuafu_1)/move_base_simple/goal"/>
+      <remap if="$(arg multiple_kuafu)" from="/clicked_point" to="/$(arg kuafu_1)/clicked_point"/>
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz_global_$(arg kuafu_2)" args="-d $(find udi_carla)/rviz/global_planning_$(arg kuafu_2).rviz" required="false" output="screen">
+      <remap from="/initialpose" to="/$(arg kuafu_2)/initialpose"/>
+      <remap if="$(arg multiple_kuafu)" from="/move_base_simple/goal" to="/$(arg kuafu_2)/move_base_simple/goal"/>
+      <remap if="$(arg multiple_kuafu)" from="/clicked_point" to="/$(arg kuafu_2)/clicked_point"/>
+    </node>
+  </group>
+  <!-- <node pkg="rviz" type="rviz" name="rviz_local_$(arg kuafu_id)" args="-d $(find udi_carla)/rviz/motion_planning.rviz" required="false" output="screen">
+    <remap from="/initialpose" to="/$(arg kuafu_id)/initialpose"/>
+    <remap if="$(arg multiple_kuafu)" from="/move_base_simple/goal" to="/$(arg kuafu_id)/move_base_simple/goal"/>
+    <remap if="$(arg multiple_kuafu)" from="/clicked_point" to="/$(arg kuafu_id)/clicked_point"/>
+  </node> -->
+
+
+  <group unless="$(arg multiple_kuafu)">
+    <node pkg="rviz" type="rviz" name="rviz_global_$(arg ego_vehicle)" args="-d $(find udi_carla)/rviz/global_planning_$(arg ego_vehicle).rviz" required="false" output="screen">
+      <remap from="/initialpose" to="/$(arg ego_vehicle)/initialpose"/>
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz_local_$(arg ego_vehicle)" args="-d $(find udi_carla)/rviz/motion_planning.rviz" required="false" output="screen">
+      <remap from="/initialpose" to="/$(arg ego_vehicle)/initialpose"/>
+    </node>
+
+
+    <node pkg="rviz" type="rviz" name="rviz_tracking_$(arg ego_vehicle)" args="-d $(find udi_carla)/rviz/lidar_tracking_pipeline.rviz" required="false" output="screen">
+      <remap from="/initialpose" to="/$(arg ego_vehicle)/initialpose"/>
+    </node>
+    
+    <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot$(arg ego_vehicle)" required="false" output="screen">
+    </node>
+  </group>
+</launch>
+

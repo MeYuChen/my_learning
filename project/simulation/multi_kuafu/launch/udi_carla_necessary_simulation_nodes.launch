@@ -1,0 +1,27 @@
+<launch>
+  <arg name="control_loop_rate" default="0.05" />
+  <arg name="kuafu_id" default="kuafu_0" />
+  <arg name="multiple_kuafu" default="false" />
+  <param name="enable_perfect_perception" type="bool" value="false"/>
+  <param if="$(arg multiple_kuafu)" name="tf_prefix" value="$(arg kuafu_id)"/>
+
+  <!-- Ackermann control converter, convert udi ackermann control msg into carla control msg-->
+  <node name="carla_ackermann_control_$(arg kuafu_id)" pkg="carla_ackermann_control"
+        type="carla_ackermann_control_node.py" output="screen">
+    <param name="role_name" value="$(arg kuafu_id)" />
+    <param name="control_loop_rate" value="$(arg control_loop_rate)" />
+    <rosparam file="$(find carla_ackermann_control)/config/settings.ros1.yaml" command="load" />
+  </node>
+
+  <!-- Remap interface, remapping topics and refactor the data structure -->
+  <node name="udi_carla_node_$(arg kuafu_id)" pkg="udi_carla" type="udi_carla_node"
+        required="true" output="screen">
+    <!-- <rosparam file="$(find udi_carla)/conf/udi_carla_params.yaml" command="load"/> -->
+  </node>
+
+  <!-- Fake Chassis Publisher -->
+  <node pkg="udi_carla" type="chassis_pub.py" name="chassis_pub_$(arg kuafu_id)"
+        required="true" output="screen">
+  </node>
+</launch>
+

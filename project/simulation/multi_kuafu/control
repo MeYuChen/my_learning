@@ -1,0 +1,6 @@
+Package: unity-drive-udi-carla
+Version: 0.0.1
+Maintainer: lizhenyu <lizhenyu [at] unity-drive.com>
+Description: udi_carla
+Architecture: amd64
+Depends:

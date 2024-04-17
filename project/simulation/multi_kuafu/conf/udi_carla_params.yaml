@@ -1,0 +1,4 @@
+udi_carla:
+  ros__parameters:
+    # override the default values of the udi_carla
+    enable_perfect_perception: false  # true:enable perfect perception ,false: disable perfect perception

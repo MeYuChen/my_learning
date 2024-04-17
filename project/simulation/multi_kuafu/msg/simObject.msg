@@ -1,0 +1,15 @@
+string object_name
+int64 object_id
+bool is_walker
+bool is_bike
+bool is_vehicle
+bool is_static
+geometry_msgs/Point world_position
+geometry_msgs/Point toplidar_position
+float64 world_heading
+float64 width
+float64 length
+float64 height
+float64 velocity
+geometry_msgs/Point velocity_vector
+geometry_msgs/Point[] polygon_point

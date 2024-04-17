@@ -1,0 +1,16 @@
+<!-- -->
+<launch>
+  <arg name="kuafu_id" default="kuafu_0" />
+  <arg name="multiple_kuafu" default="false" />
+  <param if="$(arg multiple_kuafu)" name="tf_prefix" value="$(arg kuafu_id)"/>
+
+  <!-- Control Module -->
+  <node pkg="udrive_control" type="udrive_control_node" name="udrive_control_node_$(arg kuafu_id)" output="screen"
+        args="--flagfile=/var/params/udrive_control/conf/control.conf
+              --conf_directory=/var/params/udrive_control/conf/">
+  <!-- <remap from="/chassis" to="/$(arg kuafu_id)/chassis" />
+  <remap from="/debug/predict_trajectory" to="/$(arg kuafu_id)/debug/predict_trajectory" />
+  <remap from="/control_cmd" to="/$(arg kuafu_id)/control_cmd" /> -->
+  </node>
+</launch>
+

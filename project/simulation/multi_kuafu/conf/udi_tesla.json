@@ -1,0 +1,9 @@
+{   
+    "objects": 
+    [
+        {
+            "type": "vehicle.tesla.model3",
+            "id": "client_vehicle"
+        }
+    ]
+}

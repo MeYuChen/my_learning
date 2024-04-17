@@ -1,0 +1,159 @@
+<!-- -->
+<launch>
+  <arg name="control_loop_rate" default="0.05" />
+  <arg name="enable_npc" default="" />
+  <arg name="default_kuafu_id" default="kuafu_0" />
+  <arg name="multiple_kuafu" default="true"/>
+  <arg name="kuafu_1" default="kuafu_1" />
+  <arg name="kuafu_2" default="kuafu_2" />
+  <arg name="kuafu_3" default="kuafu_3" />
+  <arg name="kuafu_4" default="kuafu_4" />
+  <arg name="kuafu_5" default="kuafu_5" />
+  <arg name="kuafu_6" default="kuafu_6" />
+  <arg name="kuafu_7" default="kuafu_7" />
+  <arg name="kuafu_8" default="kuafu_8" />
+  <arg name="kuafu_9" default="kuafu_9" />
+  <arg name="kuafu_10" default="kuafu_10" />
+  <arg name="kuafu_11" default="kuafu_11" />
+  <arg name="kuafu_12" default="kuafu_12" />
+  <arg name="kuafu_13" default="kuafu_13" />
+  <arg name="kuafu_14" default="kuafu_14" />
+
+  <group if="$(arg multiple_kuafu)">
+    <group ns="kuafu_1">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_1)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_2">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_2)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_3">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_3)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+      <group ns="kuafu_4">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_4)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_5">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_5)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_6">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_6)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_7">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_7)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_8">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_8)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_9">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_9)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_10">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_10)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_11">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_11)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_12">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_12)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+    <group ns="kuafu_13">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_13)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+
+      <group ns="kuafu_14">
+      <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+      <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+      <arg name="enable_npc" default="$(arg enable_npc)" />
+      <arg name="kuafu_id" default="$(arg kuafu_14)" />
+      <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+      </include>
+    </group>
+  </group>
+
+  <group unless="$(arg multiple_kuafu)">
+    <include file="$(find udi_carla)/launch/udi_carla_global_control_etc.launch">
+    <arg name="control_loop_rate" default="$(arg control_loop_rate)" />
+    <arg name="enable_npc" default="$(arg enable_npc)" />
+    <arg name="kuafu_id" default="$(arg default_kuafu_id)" />
+    <arg name="multiple_kuafu" default="$(arg multiple_kuafu)" />
+    </include>
+  </group>
+</launch>
+

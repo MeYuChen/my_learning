@@ -1,0 +1,9 @@
+<launch>
+  <arg name="kuafu_id" default="kuafu_0" />
+  <!-- Behaviour planner -->
+  <node name="opendrive_behaviour_planner_node_$(arg kuafu_id)" pkg="opendrive_behaviour_planner"
+        type="opendrive_behaviour_planner_node" output="screen"
+        args="--flagfile=/var/params/common_infa/conf/common_gflags.conf">
+  </node>
+</launch>
+

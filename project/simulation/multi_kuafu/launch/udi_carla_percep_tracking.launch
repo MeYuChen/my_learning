@@ -1,0 +1,6 @@
+<launch>
+  <!-- Lidar tracking -->
+  <node name="lidar_tracking_component" pkg="perception_pipeline" type="lidar_tracking_component"
+        args="$(find perception_pipeline)/config/lidar/detection-adv-gt-simulation-mini.conf
+              $(find perception_pipeline)/config/lidar/transform-adv-gt-simulation-mini.conf"/>
+</launch>

@@ -1,0 +1,171 @@
+<!-- -->
+<launch>
+  <!-- carla parameter -->
+  <arg name='host' default='localhost'/> <!-- host the carla server is running on -->
+  <arg name='port' default='2000'/> <!-- port of the carla server -->
+  <arg name="town" default="big_ground"/> <!-- the carla town to load-->
+  <arg name='timeout' default='30'/> <!-- the carla timeout for server communication -->
+  <arg name='passive' default='false'/> <!-- enable/disable passive mode -->
+  <arg name='synchronous_mode' default='false'/>
+  <arg name='synchronous_mode_wait_for_vehicle_control_command' default='false'/><!-- should the ros bridge wait for a vehicle control command before proceeding with the next tick -->
+  <arg name='fixed_delta_seconds' default='0.00'/><!-- frequency of the carla ticks 0.05-->
+  <arg name="multiple_kuafu" default="true" />
+  <!-- ego vehicle parameter -->
+  <arg name="vehicle_0" default="kuafu_0"/>
+  <arg name="vehicle_1" default="kuafu_1"/>
+  <arg name="vehicle_2" default="kuafu_2"/>
+  <arg name="vehicle_3" default="kuafu_3"/>
+  <arg name="vehicle_4" default="kuafu_4"/>
+  <arg name="vehicle_5" default="kuafu_5"/>
+  <arg name="vehicle_6" default="kuafu_6"/>
+  <arg name="vehicle_7" default="kuafu_7"/>
+  <arg name="vehicle_8" default="kuafu_8"/>
+  <arg name="vehicle_9" default="kuafu_9"/>
+  <arg name="vehicle_10" default="kuafu_10"/>
+  <arg name="vehicle_11" default="kuafu_11"/>
+  <arg name="vehicle_12" default="kuafu_12"/>
+  <arg name="vehicle_13" default="kuafu_13"/>
+  <arg name="vehicle_14" default="kuafu_14"/>
+
+
+  <arg name="vehicle_filter" default="vehicle.kuafu.kuafu"/> <!-- which vehicle type to use for the ego. See blueprint library for others -->
+  <arg name='spawn_point_1' default='0.0, 0.0, 2.0, 0, 0, 0'/> <!-- UE is left-handed system, ROS is right handed system, remember the '-' of y coordinate-->
+  <arg name='spawn_point_2' default='0.0, 3.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_3' default='0.0, 6.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_4' default='0.0, 9.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_5' default='0.0, 12.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_6' default='0.0, 15.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_7' default='0.0, 18.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_8' default='0.0, 21.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_9' default='0.0, 24.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_10' default='0.0, 27.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_11' default='0.0, 30.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_12' default='0.0, 33.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_13' default='0.0, 36.0, 2.0, 0, 0, 0'/>
+  <arg name='spawn_point_14' default='0.0, 39.0, 2.0, 0, 0, 0'/>
+
+  <arg name='ego_vehicle_role_name' default='["hero", "ego_vehicle", "hero0", "hero1", "kuafu_0", "kuafu_1", "kuafu_2", "kuafu_3", "kuafu_4", "kuafu_5", "kuafu_6", "kuafu_7", "kuafu_8", "kuafu_9", "kuafu_10", "kuafu_11", "kuafu_12", "kuafu_13", "kuafu_14"]'/>
+
+
+  <!-- The ros bridge -->
+  <include file="$(find carla_ros_bridge)/launch/carla_ros_bridge.launch">
+    <arg name='host' value='$(arg host)'/>
+    <arg name='port' value='$(arg port)'/>
+    <arg name='town' value='$(arg town)'/>
+    <arg name='timeout' value='$(arg timeout)'/>
+    <arg name='passive' value='$(arg passive)'/>
+    <arg name='synchronous_mode' default='$(arg synchronous_mode)'/>
+    <arg name='synchronous_mode_wait_for_vehicle_control_command' value='$(arg synchronous_mode_wait_for_vehicle_control_command)'/>
+    <arg name='fixed_delta_seconds' value='$(arg fixed_delta_seconds)'/>
+    <arg name='ego_vehicle_role_name' value='$(arg ego_vehicle_role_name)'/>
+  </include>
+
+  <group unless="$(arg multiple_kuafu)">
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_kuafu_with_lidar.json'/>
+      <arg name='role_name' value='$(arg vehicle_0)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_1)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+  </group>
+
+  <group if="$(arg multiple_kuafu)">
+    <!-- the ego vehicle 1, that will be controlled by the PNC -->
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_1).json'/>
+      <arg name='role_name' value='$(arg vehicle_1)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_1)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_2).json'/>
+      <arg name='role_name' value='$(arg vehicle_2)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_2)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_3).json'/>
+      <arg name='role_name' value='$(arg vehicle_3)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_3)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_4).json'/>
+      <arg name='role_name' value='$(arg vehicle_4)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_4)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_5).json'/>
+      <arg name='role_name' value='$(arg vehicle_5)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_5)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_6).json'/>
+      <arg name='role_name' value='$(arg vehicle_6)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_6)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_7).json'/>
+      <arg name='role_name' value='$(arg vehicle_7)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_7)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_8).json'/>
+      <arg name='role_name' value='$(arg vehicle_8)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_8)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_9).json'/>
+      <arg name='role_name' value='$(arg vehicle_9)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_9)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_10).json'/>
+      <arg name='role_name' value='$(arg vehicle_10)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_10)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_11).json'/>
+      <arg name='role_name' value='$(arg vehicle_11)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_11)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>    
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_12).json'/>
+      <arg name='role_name' value='$(arg vehicle_12)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_12)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>  
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_13).json'/>
+      <arg name='role_name' value='$(arg vehicle_13)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_13)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>  
+
+    <include file="$(find carla_spawn_objects)/launch/carla_example_ego_vehicle.launch">
+      <arg name="objects_definition_file" value='$(find udi_carla)/conf/udi_$(arg vehicle_14).json'/>
+      <arg name='role_name' value='$(arg vehicle_14)'/>
+      <arg name="spawn_point" value="$(arg spawn_point_14)"/>
+      <arg name="spawn_sensors_only" value="false"/>
+    </include>  
+  </group>
+</launch>

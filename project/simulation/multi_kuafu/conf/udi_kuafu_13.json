@@ -1,0 +1,36 @@
+{   
+    "objects": 
+    [
+        {
+            "type": "sensor.pseudo.traffic_lights",
+            "id": "traffic_lights"
+        },
+        {
+            "type": "sensor.pseudo.actor_list",
+            "id": "actor_list"
+        },
+        {
+            "type": "vehicle.kuafu.kuafu",
+            "id" : "kuafu_13",
+            "sensors": 
+            [
+                {
+                    "type": "sensor.pseudo.tf",
+                    "id": "tf"
+                },
+                {
+                    "type": "sensor.pseudo.objects",
+                    "id": "objects"
+                },
+                {
+                    "type": "sensor.pseudo.odom",
+                    "id": "odometry"
+                },
+                {
+                    "type": "actor.pseudo.control",
+                    "id": "control"
+                }
+            ]
+        }
+    ]
+}

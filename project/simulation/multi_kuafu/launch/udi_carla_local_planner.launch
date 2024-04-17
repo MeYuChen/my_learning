@@ -1,0 +1,11 @@
+<!-- -->
+<launch>
+  <arg name="kuafu_id" default="kuafu_0" />
+  <!-- Local planner -->
+  <node name="motion_planning_infa_module_$(arg kuafu_id)" pkg="motion_planning_infa"
+        type="motion_planning_infa_module" output="screen"
+        args="--flagfile=/var/params/motion_planning_infa/conf/planning.conf
+              --conf_directory=/var/params/motion_planning_infa/conf/">
+  </node>
+</launch>
+

@@ -1,0 +1,13 @@
+string object_name
+int64 object_id
+float64 x
+float64 y
+float64 z
+float64 length
+float64 width
+float64 high
+float64 vel_x
+float64 vel_y
+float64 vel_z
+float64 velocity
+geometry_msgs/Point[] polygon_point

@@ -1,0 +1,57 @@
+<launch>
+  <arg name="control_loop_rate" default="0.05" />
+  <arg name="enable_npc" default="" />
+  <arg name="kuafu_id" default="kuafu_0" />
+  <arg name="multiple_kuafu" default="false" />
+  <param name="enable_perfect_perception" type="bool" value="true"/>
+  <param if="$(arg multiple_kuafu)" name="tf_prefix" value="$(arg kuafu_id)"/>
+
+  <!-- Ackermann control converter, convert udi ackermann control msg into carla control msg-->
+  <node name="carla_ackermann_control_$(arg kuafu_id)" pkg="carla_ackermann_control"
+        type="carla_ackermann_control_node.py" output="screen">
+    <param name="role_name" value="$(arg kuafu_id)" />
+    <param name="control_loop_rate" value="$(arg control_loop_rate)" />
+    <rosparam file="$(find carla_ackermann_control)/config/settings.ros1.yaml" command="load" />
+  </node>
+
+  <!-- Gloabl planner -->
+  <node name="opendrive_global_planner_node_$(arg kuafu_id)" pkg="opendrive_global_planner"
+        type="opendrive_global_planner_node" output="screen" 
+        args="--flagfile=/var/params/common_infa/conf/common_gflags.conf">
+  </node>
+
+  <!-- Behaviour planner -->
+  <node name="opendrive_behaviour_planner_node_$(arg kuafu_id)" pkg="opendrive_behaviour_planner"
+        type="opendrive_behaviour_planner_node" output="screen"
+        args="--flagfile=/var/params/common_infa/conf/common_gflags.conf">
+  </node>
+
+  <!-- Control Module -->
+  <node name="udrive_control_node_$(arg kuafu_id)" pkg="udrive_control" 
+        type="udrive_control_node" output="screen"
+        args="--flagfile=/var/params/udrive_control/conf/control.conf
+              --conf_directory=/var/params/udrive_control/conf/">
+  <!-- <remap from="/chassis" to="/$(arg kuafu_id)/chassis" />
+  <remap from="/debug/predict_trajectory" to="/$(arg kuafu_id)/debug/predict_trajectory" />
+  <remap from="/control_cmd" to="/$(arg kuafu_id)/control_cmd" /> -->
+  </node>
+
+
+  <!-- Remap interface, remapping topics and refactor the data structure -->
+  <node name="udi_carla_node_$(arg kuafu_id)" pkg="udi_carla"
+        type="udi_carla_node" required="true" output="screen">
+    <!-- <rosparam file="$(find udi_carla)/conf/udi_carla_params.yaml" command="load"/> -->
+  </node>
+
+  <!-- Fake Chassis Publisher -->
+  <node name="chassis_pub_$(arg kuafu_id)" pkg="udi_carla" 
+        type="chassis_pub.py" required="true" output="screen">
+  </node>
+
+  <!-- Local path planner -->
+  <node if="$(arg multiple_kuafu)" name="motion_planning_infa_module_$(arg kuafu_id)"
+        pkg="motion_planning_infa" type="motion_planning_infa_module" output="screen"
+        args="--flagfile=/var/params/motion_planning_infa/conf/planning.conf
+              --conf_directory=/var/params/motion_planning_infa/conf/">
+  </node>
+</launch>

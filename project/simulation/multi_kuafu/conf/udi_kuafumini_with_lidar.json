@@ -1,0 +1,110 @@
+{
+    "objects": [
+        {
+            "type": "sensor.pseudo.traffic_lights",
+            "id": "traffic_lights"
+        },
+        {
+            "type": "sensor.pseudo.actor_list",
+            "id": "actor_list"
+        },
+        {
+            "type": "vehicle.kuafumini.kuafumini",
+            "id": "kuafu_0",
+            "sensors": [
+                {
+                    "type": "sensor.lidar.ray_cast",
+                    "id": "lidar_0",
+                    "spawn_point": {
+                        "x": 1.4,
+                        "y": 0.0,
+                        "z": 1.52,
+                        "roll": 0.0,
+                        "pitch": 0.0,
+                        "yaw": 0.0
+                    },
+                    "range": 50,
+                    "channels": 32,
+                    "points_per_second": 320000,
+                    "upper_fov": 15,
+                    "lower_fov": -15,
+                    "rotation_frequency": 20,
+                    "noise_stddev": 0.0
+                },
+                {
+                    "type": "sensor.lidar.ray_cast",
+                    "id": "lidar_1",
+                    "spawn_point": {
+                        "x": 1.56,
+                        "y": 0.47,
+                        "z": 0.62,
+                        "roll": -0.403671,
+                        "pitch": 0.047880,
+                        "yaw": 45.930612
+                    },
+                    "range": 50,
+                    "channels": 32,
+                    "points_per_second": 320000,
+                    "upper_fov": 15,
+                    "lower_fov": -15,
+                    "rotation_frequency": 20,
+                    "noise_stddev": 0.0
+                },
+                {
+                    "type": "sensor.lidar.ray_cast",
+                    "id": "lidar_2",
+                    "spawn_point": {
+                        "x": 1.56,
+                        "y": -0.47,
+                        "z": 0.62,
+                        "roll": -0.853383,
+                        "pitch": 0.861864,
+                        "yaw": -47.278487
+                    },
+                    "range": 50,
+                    "channels": 32,
+                    "points_per_second": 320000,
+                    "upper_fov": 15,
+                    "lower_fov": -15,
+                    "rotation_frequency": 20,
+                    "noise_stddev": 0.0
+                },
+                {
+                    "type": "sensor.lidar.ray_cast",
+                    "id": "lidar_3",
+                    "spawn_point": {
+                        "x": -0.37,
+                        "y": 0,
+                        "z": 1.48,
+                        "roll": 0.0,
+                        "pitch": 53.468424,
+                        "yaw": 179.908753
+                    },
+                    "range": 50,
+                    "channels": 32,
+                    "points_per_second": 320000,
+                    "upper_fov": 15,
+                    "lower_fov": -15,
+                    "rotation_frequency": 20,
+                    "noise_stddev": 0.0
+                },
+                {
+                    "type": "sensor.pseudo.tf",
+                    "id": "tf"
+                },
+                {
+                    "type": "sensor.pseudo.objects",
+                    "id": "objects"
+                },
+                {
+                    "type": "sensor.pseudo.odom",
+                    "id": "odometry"
+                },
+                {
+                    "type": "actor.pseudo.control",
+                    "id": "control"
+                }
+            ]
+        }
+    ]
+}

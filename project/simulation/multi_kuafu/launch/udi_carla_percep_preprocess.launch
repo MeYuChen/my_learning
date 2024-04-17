@@ -1,0 +1,7 @@
+<launch>
+  <!-- Lidar preprocess -->
+  <node name="lidar_preprocess_component" pkg="perception_pipeline" type="lidar_preprocess_component"
+      args="$(find perception_pipeline)/config/lidar/detection-adv-gt-simulation-mini.conf
+            $(find perception_pipeline)/config/lidar/transform-adv-gt-simulation-mini.conf">
+  </node>
+</launch>
