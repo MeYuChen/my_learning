@@ -71,6 +71,7 @@
                 "codecvt": "cpp",
                 "cuchar": "cpp",
                 "shared_mutex": "cpp",
-                "climits": "cpp"
+                "climits": "cpp",
+                "queue": "cpp"
         }
 }
