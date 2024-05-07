@@ -115,8 +115,8 @@ class Path:
         self.cost = cost
 
 class Node:
-    def __init__(self,xindx,yindex,yawindx,direction,x,y,yaw,dirs,steer,cost,pind):
-        self.xindx = xindx 
+    def __init__(self,xindex,yindex,yawindx,direction,x,y,yaw,dirs,steer,cost,pind):
+        self.xindex = xindex 
         self.yindex = yindex 
         self.yawindx = yawindx 
         self.direction = direction 
@@ -139,9 +139,9 @@ def pi_2_pi(theta):
     return theta
 
 def is_same_grid(node1, node2):
-    if node1.xind != node2.xind or \
-            node1.yind != node2.yind or \
-            node1.yawind != node2.yawind:
+    if node1.xindex != node2.xindex or \
+            node1.yindex != node2.yindex or \
+            node1.yawindx != node2.yawindx:
         return False
 
     return True
@@ -152,7 +152,7 @@ def calc_parameters(ox,oy,xyreso,yawreso,kdtree):
     maxx = round(max(ox) / xyreso)
     maxy = round(max(ox) / xyreso)
 
-    xw,yw = maxx = minx,maxy - miny
+    xw,yw = maxx - minx,maxy - miny
     minyaw = round( -C.PI /yawreso) -1
     maxyaw = round(C.PI /yawreso)
     yaww = maxyaw - minyaw
@@ -164,19 +164,18 @@ def calc_parameters(ox,oy,xyreso,yawreso,kdtree):
 def calc_motion_set():
     s = np.arange(C.MAX_STEER/C.N_STEER,C.MAX_STEER,C.MAX_STEER/C.N_STEER)
     steer = list(s) + [0.0] + list(-s)
-    direc = [1.0 for _ in range(len(steer))]
-    + [-1.0 for _ in range(len(steer))]
+    direc = [1.0 for _ in range(len(steer))] + [-1.0 for _ in range(len(steer))]
     steer  = steer + steer
     return steer ,direc
 
 # 计算index 
 def calc_index(node,p):
-    ind = (node.yawindx - p.minyaw)*p.xw * p.yw+(node.yindex - p.miny)*p.xw + (node.xindx - p.minx)
+    ind = (node.yawindx - p.minyaw)*p.xw * p.yw+(node.yindex - p.miny)*p.xw + (node.xindex - p.minx)
     return ind
 
 def calc_hybrid_cost(node, hmap, P):
      cost = node.cost + \
-           C.H_COST * hmap[node.xind - P.minx][node.yind - P.miny]
+           C.H_COST * hmap[node.xindex - P.minx][node.yindex - P.miny]
      return cost
 
 def calc_rs_path_cost(path):
@@ -265,16 +264,17 @@ def  update_node_with_analystic_expantion(n_curr, ngoal, P):
     fcost = n_curr.cost + calc_rs_path_cost(path)
     fpind = calc_index(n_curr,P)
     fsteer = 0.0
-    fpath = Node(n_curr.xind, n_curr.yind, n_curr.yawind, n_curr.direction,
+    fpath = Node(n_curr.xindex, n_curr.yindex, n_curr.yawindx, n_curr.direction,
                  fx, fy, fyaw, fd, fsteer, fcost, fpind)
     return True,fpath
 
 def calc_next_node(n_curr, c_id, u, d, P):
     step = C.XY_RESO * 2
     nlist = math.ceil(step / C.MOVE_STEP)
-    xlist = [n_curr.x[-1]] + d* C.MOVE_STEP * math.cos(n_curr.yaw[-1])
-    ylist = [n_curr.y[-1]] + d* C.MOVE_STEP * math.sin(n_curr.yaw[-1])
+    xlist = [n_curr.x[-1] + d* C.MOVE_STEP * math.cos(n_curr.yaw[-1])]
+    ylist = [n_curr.y[-1] + d* C.MOVE_STEP * math.sin(n_curr.yaw[-1])]
     yawlist = [pi_2_pi(n_curr.yaw[-1] + d * C.MOVE_STEP /C.WB* math.tan(u))]
+
     for i in range(nlist -1 ):
         xlist.append(xlist[i] + d * C.MOVE_STEP * math .cos(yawlist[i]))
         ylist.append(ylist[i] + d * C.MOVE_STEP * math .sin(yawlist[i]))
@@ -287,10 +287,8 @@ def calc_next_node(n_curr, c_id, u, d, P):
         return None
     
     cost = 0.0
-
     if d > 0:
-
-        dirsction = 1 
+        direction = 1 
         cost+=abs(step)
     else:
         direction = -1
@@ -298,6 +296,7 @@ def calc_next_node(n_curr, c_id, u, d, P):
     
     if direction != n_curr.direction : 
         cost+=C.GEAR_COST
+
     cost += C.STEER_ANGLE_COST * abs(u) 
     cost+= C.STEER_CHANGE_COST * abs(n_curr.steer - u)
     cost = n_curr.cost + cost
@@ -385,7 +384,7 @@ def extract_path(closed, ngoal, nstart):
         rx += node.x[::-1]
         ry += node.y[::-1]
         ryaw += node.yaw[::-1]
-        direc += node.directions[::-1]
+        direc += node.dirs[::-1]
         cost += node.cost
 
         if is_same_grid(node, nstart):
