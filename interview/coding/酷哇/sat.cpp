@@ -116,6 +116,5 @@ int main() {
       separatingAxisTheorem(rotated_vertices, circle_center, radius);
   cout << "Circle and oriented rectangle overlapping: "
        << (is_overlapping ? "true" : "false") << endl;
-
   return 0;
 }
